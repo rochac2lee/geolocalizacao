@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\Consultas;
 use App\Services\FindIp;
 use App\Services\Weather;
 
@@ -20,14 +21,18 @@ class GeoController extends Controller
 
         $WeaterLocalData = $Weather->getWeatherCoordinates($geoData->lat, $geoData->lon);
 
-        return response()->json($this->formatResponse($geoData, $WeaterLocalData));
+        $formattedResponse = $this->formatResponse($geoData, $WeaterLocalData);
+        Consultas::create($formattedResponse);
+
+        return response()->json($formattedResponse);
+        
     }
 
     public function formatResponse($geoData, $WeaterLocalData){
         
         $reponseFormatted = [];
-        $atualizacao = explode(" ", $WeaterLocalData->current->last_updated);
 
+        $reponseFormatted['ip'] = $geoData->query;
         $reponseFormatted['cidade'] = $geoData->city;
         $reponseFormatted['estado'] = $geoData->regionName;
         $reponseFormatted['pais'] = $geoData->country;
@@ -37,7 +42,7 @@ class GeoController extends Controller
         $reponseFormatted["status"] = $WeaterLocalData->current->condition->text;
         $reponseFormatted["velocidadeVento"] = $WeaterLocalData->current->wind_kph . "Km/h";
         $reponseFormatted["humidadeAr"] = $WeaterLocalData->current->humidity . " %";
-        $reponseFormatted["ultimaAtualizacao"] = $atualizacao[1];
+        $reponseFormatted["ultimaAtualizacao"] = $WeaterLocalData->current->last_updated;
         
 
         return $reponseFormatted;
