@@ -16,7 +16,9 @@ class Kernel extends ConsoleKernel
      */
     protected function schedule(Schedule $schedule)
     {
-        $schedule->command('SendEmail:cron')->hourly();
+        $schedule->command('SendEmail:cron')
+            ->dailyAt('07:00')
+            ->timeZone('America/Sao_Paulo');
     }
 
     /**
