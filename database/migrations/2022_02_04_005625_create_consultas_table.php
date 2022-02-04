@@ -22,7 +22,7 @@ class CreateConsultasTable extends Migration
             $table->string('temperatura');
             $table->string('eDia');
             $table->string('velocidadeVento');
-            $table->string('humidadeAr');
+            $table->string('umidadeAr');
             $table->string('ultimaAtualizacao');
             $table->timestamps();
         });

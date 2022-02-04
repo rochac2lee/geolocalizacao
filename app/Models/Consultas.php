@@ -17,7 +17,7 @@ class Consultas extends Model
         'temperatura',
         'eDia',
         'velocidadeVento',
-        'humidadeAr',
+        'umidadeAr',
         'ultimaAtualizacao'
     ];
 

@@ -7,6 +7,7 @@ use App\Models\Consultas;
 use App\Services\FindIp;
 use App\Services\Weather;
 
+
 class GeoController extends Controller
 {
     public function showForecastTemp(Request $request){
@@ -14,8 +15,7 @@ class GeoController extends Controller
         $FindIp = new FindIp();
         $Weather = new Weather();
 
-        //$ipClient = $request->ip();
-        $ipClient = "177.36.251.14";
+        $ipClient = $request->ip();
 
         $geoData = $FindIp->getInfoIp($ipClient);
 
@@ -57,7 +57,7 @@ class GeoController extends Controller
         $reponseFormatted["eDia"] = (($WeaterLocalData->current->is_day == 0) ? 'Sim' : 'Nao');
         $reponseFormatted["status"] = $WeaterLocalData->current->condition->text;
         $reponseFormatted["velocidadeVento"] = $WeaterLocalData->current->wind_kph . "Km/h";
-        $reponseFormatted["humidadeAr"] = $WeaterLocalData->current->humidity . " %";
+        $reponseFormatted["umidadeAr"] = $WeaterLocalData->current->humidity . " %";
         $reponseFormatted["ultimaAtualizacao"] = $WeaterLocalData->current->last_updated;
         
 
