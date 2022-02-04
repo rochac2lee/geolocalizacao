@@ -2,6 +2,7 @@
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\GeoController;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,3 +18,6 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+Route::get('/forecast/me/', [GeoController::class, 'showForecastTemp']); // Mostra a minha previsão do tempo
+Route::get('/forecast/test/{ip}', [GeoController::class, 'test']); // Mostra a lista de previsões recentes
