@@ -20,4 +20,4 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 Route::get('/forecast/me/', [GeoController::class, 'showForecastTemp']); // Mostra a minha previsão do tempo
-Route::get('/forecast/test/{ip}', [GeoController::class, 'test']); // Mostra a lista de previsões recentes
+Route::get('/forecast/list/{ip}/{limit}', [GeoController::class, 'list']); // Mostra a lista de previsões recentes

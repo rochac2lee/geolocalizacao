@@ -25,7 +25,23 @@ class GeoController extends Controller
         Consultas::create($formattedResponse);
 
         return response()->json($formattedResponse);
-        
+
+    }
+
+    public function list($ipUser, $limit){
+
+        $list = Consultas::where('ip', $ipUser)
+            ->orderByDesc('id')
+            ->limit($limit)
+            ->get();
+
+        if(sizeof($list) != 0){
+            return response()->json($list);    
+        }else{
+            return response()->json([ 'error' => true, 'message' => 'Não existem registros com esse ip' ]);
+        }
+
+
     }
 
     public function formatResponse($geoData, $WeaterLocalData){
