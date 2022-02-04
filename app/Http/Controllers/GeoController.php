@@ -10,7 +10,7 @@ use App\Events\NovaConsulta;
 
 class GeoController extends Controller
 {
-    public function showForecastTemp(Request $request){
+    public function showWeather(Request $request){
 
         $FindIp = new FindIp();
         $Weather = new Weather();
@@ -18,6 +18,10 @@ class GeoController extends Controller
         $ipClient = $request->ip();
 
         $geoData = $FindIp->getInfoIp($ipClient);
+
+        if($geoData->status == "fail"){
+            return response()->json([ 'error' => true, 'message' => 'Falha ao obter informações sobre o IP' ]);
+        }
 
         $WeaterLocalData = $Weather->getWeatherCoordinates($geoData->lat, $geoData->lon);
 
@@ -55,7 +59,7 @@ class GeoController extends Controller
         $reponseFormatted['pais'] = $geoData->country;
 
         $reponseFormatted["temperatura"] = $WeaterLocalData->current->temp_c . "º C";
-        $reponseFormatted["eDia"] = (($WeaterLocalData->current->is_day == 0) ? 'Sim' : 'Nao');
+        $reponseFormatted["eDia"] = (($WeaterLocalData->current->is_day == 1) ? 'Sim' : 'Nao');
         $reponseFormatted["status"] = $WeaterLocalData->current->condition->text;
         $reponseFormatted["velocidadeVento"] = $WeaterLocalData->current->wind_kph . "Km/h";
         $reponseFormatted["umidadeAr"] = $WeaterLocalData->current->humidity . " %";

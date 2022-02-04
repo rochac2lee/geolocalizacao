@@ -19,5 +19,5 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::get('/forecast/me/', [GeoController::class, 'showForecastTemp']); // Mostra a minha previsão do tempo
-Route::get('/forecast/list/{ip}/{limit}', [GeoController::class, 'list']); // Mostra a lista de previsões recentes
+Route::get('/weather', [GeoController::class, 'showWeather']); // Mostra a minha previsão do tempo
+Route::get('/weather/list/{ip}/{limit}', [GeoController::class, 'list']); // Mostra a lista de previsões recentes
