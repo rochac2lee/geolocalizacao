@@ -3,9 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\Consultas;
 use App\Services\FindIp;
 use App\Services\Weather;
+use App\Events\NovaConsulta;
 
 
 class GeoController extends Controller
@@ -22,7 +22,8 @@ class GeoController extends Controller
         $WeaterLocalData = $Weather->getWeatherCoordinates($geoData->lat, $geoData->lon);
 
         $formattedResponse = $this->formatResponse($geoData, $WeaterLocalData);
-        Consultas::create($formattedResponse);
+        
+        event(new NovaConsulta($formattedResponse));
 
         return response()->json($formattedResponse);
 
