@@ -1,6 +1,22 @@
 # GeoApi
 Uma api que retornas as condições climáticas pelo ip do usuário
 
+## Instalação
+### Clone o repositório
+```bash
+git clone https://github.com/rochac2lee/geolocalizacao.git
+```
+
+### Na pasta do projeto, configure as credenciais no arquivo .env
+
+### Iniciando o servidor de desenvolvimento:
+<p>Vai exportar a api na porta 8000</p>
+
+```bash
+php artisan serve
+```
+
+
 ## Exemplo de requisições a api:
 ### GET /weather
 Essa requisição informa a condição climática e um status de previsão nas próximas horas
